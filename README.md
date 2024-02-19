@@ -1,0 +1,2 @@
+# guerrilla
+Guerrilla Trading Bot
