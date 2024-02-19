@@ -42,3 +42,29 @@ Guerrilla Trading Bot
 ⠀⣿⣇⣀⣉⣠⣤⣤⣬⣥⣤⣤⣴⠿⠶⠇⠀⠀⠀⠀⠸⣧⣠⣀⡀⠀⣀⡀⠀⠀⣀⠀⠀⠀⢀⣼⠟⠀⠀⠀⠀⠀⠈⠛⠻⠿⠿⠿⣷⣄⠀⠀⠀⢠⣾⠖⠛⠛⠛⠀
 ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠉⠉⠙⠳⠿⠿⠶⠿⢿⣶⣶⡾⠛⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠳⠶⠟⠛⠁⠀⠀⠀⠀⠀
 ```
+
+# Build and Run Locally
+
+Install dependencies:
+
+```
+$ npm install
+```
+
+Build executable:
+
+```
+$ npx tsc
+```
+
+Run:
+
+```
+$ node build/index.js
+```
+
+You should see:
+
+```
+Server running on http://localhost:3000
+```
