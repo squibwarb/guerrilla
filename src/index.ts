@@ -1,20 +1,23 @@
 import express, { Request, Response } from 'express';
+import { JsonDatabase, Order } from './db';
 
 const app = express();
 const PORT = 3000;
+const ENVIRONMENT = "production";
+const db = new JsonDatabase(`./data/${ENVIRONMENT}.json`);
 
 // Middleware to parse the body of POST requests
 app.use(express.json());
 
-// Handle GET request
-app.get('/', (req: Request, res: Response) => {
-    res.send('Hello, world!');
+app.get('/', async (req: Request, res: Response) => {
+    const orders = await db.readData();
+    res.send(`DB: ${JSON.stringify(orders)}`);
 });
 
-// Handle POST request
-app.post('/data', (req: Request, res: Response) => {
-    console.log(req.body);
-    res.send({ message: 'Data received!', data: req.body });
+app.post('/order', async (req: Request, res: Response) => {
+    let order = req.body as Order;
+    await db.createOrder(order);
+    res.send(`created order: ${JSON.stringify(order)}`);
 });
 
 // Start the server
