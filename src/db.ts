@@ -19,12 +19,8 @@ export class JsonDatabase {
   }
 
   async readData(): Promise<Order[]> {
-    try {
-      const data = await fsPromises.readFile(this.filePath, 'utf8');
-      return JSON.parse(data);
-    } catch {
-      return []
-    }
+    const data = await fsPromises.readFile(this.filePath, 'utf8');
+    return JSON.parse(data);
   }
 
   async writeData(orders: Order[]): Promise<void> {
