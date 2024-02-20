@@ -2,6 +2,7 @@ import axios from 'axios';
 import config from 'config';
 
 interface DydxConfig {
+    positionId: string;
     apiUrl: string;
     apiKey: string;
     apiSecret: string;
@@ -9,16 +10,17 @@ interface DydxConfig {
 }
 
 export interface DydxOrderParams {
-    positionId: string;
     market: string;
     side: string;
     type: string;
     size: string;
     price: string;
+    positionId?: string;
 }
 
 export const createOrder = async (orderParams: DydxOrderParams) => {
     const dydxConfig: DydxConfig = config.get('dydx');
+    orderParams.positionId = dydxConfig.positionId;
 
     try {
         console.log("Attempting to place order", dydxConfig, orderParams);
@@ -33,6 +35,6 @@ export const createOrder = async (orderParams: DydxOrderParams) => {
 
         console.log('Order created successfully:', response.data);
     } catch (error) {
-        console.error('Error creating order');
+        console.error("Error creating order", error);
     }
 };

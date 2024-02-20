@@ -4,8 +4,9 @@ import { DydxOrderParams, createOrder } from './dydx/client'
 
 const app = express();
 const PORT = 3000;
-const ENVIRONMENT = "production";
-const db = new JsonDatabase(`./data/${ENVIRONMENT}.json`);
+const MARKET_ORDER_TYPE = "MARKET";
+const NODE_ENV = process.env.NODE_ENV;
+const db = new JsonDatabase(`./data/${NODE_ENV}.json`);
 
 // TradingView Webhook event structure
 interface WebhookEvent {
@@ -33,10 +34,9 @@ app.post('/data', async (req: Request, res: Response) => {
 app.post('/order', async (req: Request, res: Response) => {
     let order = req.body as WebhookEvent;
     const orderParams: DydxOrderParams = {
-        positionId: "mypositionid",
         market: order.market,
         side: order.side,
-        type: "MARKET",
+        type: MARKET_ORDER_TYPE,
         size: order.size,
         price: order.price
     }
@@ -46,5 +46,5 @@ app.post('/order', async (req: Request, res: Response) => {
 
 // Start the server
 app.listen(PORT, () => {
-    console.log(`Server running on http://localhost:${PORT}`);
+    console.log(`Server running on http://localhost:${PORT}`, {NODE_ENV});
 });
