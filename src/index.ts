@@ -2,23 +2,24 @@ import express, { Request, Response } from 'express';
 import { JsonDatabase, Order } from './db';
 import { DydxOrderParams, createOrder } from './dydx/client'
 
-const app = express();
+const NODE_ENV = process.env.NODE_ENV;
 const PORT = 3000;
 const MARKET_ORDER_TYPE = "MARKET";
-const NODE_ENV = process.env.NODE_ENV;
-const db = new JsonDatabase(`./data/${NODE_ENV}.json`);
 
-// TradingView Webhook event structure
+// Incoming TradingView Webhook event structure
 interface WebhookEvent {
-	market: string;
+	market: string;     // 'SOL_USD' ... etc
 	position: string;   // 'long', 'flat', or 'short' {{strategy.market_position}}
     side: string;       // 'buy' or 'sell' {{strategy.order.action}}
 	price: string;      // {{strategy.order.price}}
 	size: string;
 }
 
-// Middleware to parse the body of POST requests
-app.use(express.json());
+// In-memory DB tracks active positions
+const db = new JsonDatabase(`./data/${NODE_ENV}.json`);
+
+// Initialize the Express application + middleware to parse POST request bodies
+const app = express().use(express.json());
 
 app.get('/', async (req: Request, res: Response) => {
     const orders = await db.readData();
