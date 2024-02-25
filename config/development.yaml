@@ -1,0 +1,12 @@
+dydx:
+  validatorRestEndpoint: 'https://...'
+  indexerRestEndpoint: 'https://...'
+  indexerWebsocketEndpoint: 'wss://...'
+  chainId: 'dydx-testnet-1'
+  walletAddress: 'dydx123...'
+  mnemonic: 'test test test test test test test ...'
+  subAccount: 0
+  clientId: 1234
+  networkName: 'my-test-network'
+server:
+  port: 3001

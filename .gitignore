@@ -4,8 +4,5 @@ node_modules/
 # Build directory
 build/
 
-# Database
-data/
-
-# Exchange Keys and Passphrases
-config/
+# Exchange Keys and Secrets
+config/production.yaml
